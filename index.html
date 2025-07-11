@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi-US | Plasma Physics Research Platform</title>
+    <meta name="description" content="Understanding the fourth state of matter through advanced research and simulation">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap');
+        
+        :root {
+            --primary: #000000;
+            --secondary: #1a1a1a;
+            --accent: #0066ff;
+            --danger: #ff3366;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 62.5%;
+        }
+
+        body {
+            font-family: 'Calibri Light', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--primary);
+            background: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-200);
+            z-index: 1000;
+            padding: 1.2rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .nav-menu a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.6;
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 5rem;
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--gray-100) 0%, white 100%);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4.2rem;
+            font-weight: 200;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .accent {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--gray-600);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.6rem;
+            justify-content: center;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3.2rem;
+            font-weight: 200;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.3rem;
+            color: var(--gray-600);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .content-main {
+            background: white;
+            border: 1px solid var(--gray-200);
+            padding: 3rem;
+            border-radius: 0.4rem;
+        }
+
+        .content-main h3 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .content-main h4 {
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin: 2rem 0 1rem;
+            color: var(--gray-700);
+        }
+
+        .content-main p {
+            font-size: 1.3rem;
+            color: var(--gray-700);
+            margin-bottom: 1.6rem;
+            line-height: 1.8;
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            padding: 2rem;
+            border-radius: 0.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .info-card h4 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .info-card p {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* Simulation Container */
+        .simulation-section {
+            background: var(--gray-100);
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+
+        .simulation-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .simulation-container {
+            background: #000;
+            border-radius: 0.8rem;
+            overflow: hidden;
+            position: relative;
+            height: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        #plasmaCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .simulation-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Equation Box */
+        .equation-box {
+            background: var(--gray-100);
+            border-left: 3px solid var(--accent);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0.4rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            text-align: center;
+            color: var(--gray-800);
+        }
+
+        /* Key Concepts Grid */
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .concept-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            padding: 2.4rem;
+            border-radius: 0.4rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .concept-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .concept-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .concept-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1.6rem;
+            color: var(--accent);
+        }
+
+        .concept-card h3 {
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+        }
+
+        .concept-card p {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+        }
+
+        /* Podcast Section */
+        .podcast-section {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 0.8rem;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .podcast-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .podcast-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--accent);
+        }
+
+        .podcast-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+
+        .podcast-content {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .podcast-description {
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--primary);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        .cta-content h2 {
+            font-size: 3rem;
+            font-weight: 200;
+            margin-bottom: 1.6rem;
+        }
+
+        .cta-content p {
+            font-size: 1.4rem;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.6rem;
+            justify-content: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            letter-spacing: 0.02em;
+            border-radius: 0.2rem;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            border-color: white;
+        }
+
+        .btn-white:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .btn-lg {
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .concepts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .concepts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .podcast-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-left">
+                <span class="brand-name">Zi-US Research</span>
+                <ul class="nav-menu">
+                    <li><a href="#" class="active">Overview</a></li>
+                    <li><a href="#">Research</a></li>
+                    <li><a href="#">Simulations</a></li>
+                    <li><a href="#">Publications</a></li>
+                    <li><a href="#">Team</a></li>
+                </ul>
+            </div>
+            <div class="nav-actions">
+                <a href="#" class="btn">Contact Us</a>
+                <a href="#" class="btn btn-primary">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                    Download Paper
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Plasma Physics: Understanding the <span class="accent">Fourth State of Matter</span></h1>
+            <p>Explore the fundamental characteristics that distinguish plasma from ordinary ionized gas, focusing on collective behavior, quasi-neutrality, and Debye shielding phenomena.</p>
+            <div class="hero-actions">
+                <a href="#simulation" class="btn btn-primary btn-lg">View Simulation</a>
+                <a href="#research" class="btn btn-lg">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Concepts Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Key Concepts in Plasma Physics</h2>
+                <p>Understanding the fundamental principles that govern plasma behavior</p>
+            </div>
+
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <svg class="concept-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                    </svg>
+                    <h3>Collective Behavior</h3>
+                    <p>Long-range electromagnetic forces create correlated particle motion, distinguishing plasma from simple ionized gas</p>
+                </div>
+                <div class="concept-card">
+                    <svg class="concept-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <h3>Quasi-Neutrality</h3>
+                    <p>Macroscopic electrical neutrality maintained through rapid charge redistribution and screening effects</p>
+                </div>
+                <div class="concept-card">
+                    <svg class="concept-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                    <h3>Debye Shielding</h3>
+                    <p>Mobile charges rearrange to screen electric fields over characteristic Debye length scales</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <section class="content-section" id="research">
+        <div class="container">
+            <div class="content-grid">
+                <div class="content-main">
+                    <h3>From Ionized Gas to Collective Behavior</h3>
+                    <p>Matter exists in four fundamental states: solid, liquid, gas, and plasma. Plasma represents the most prevalent form of baryonic matter in the visible universe, constituting the substance of stars and interstellar space. Despite its cosmic abundance, plasma requires special conditions to be generated and studied in laboratory settings.</p>
+                    
+                    <p>While often described as an ionized gas, this definition is incomplete. The defining characteristic of plasma is the ability of free charged particles—electrons and ions—to exhibit collective behavior through long-range electromagnetic interactions.</p>
+
+                    <h4>The Principle of Quasi-Neutrality</h4>
+                    <p>A foundational property of plasma is quasi-neutrality. While composed of charged particles, plasma appears electrically neutral on macroscopic scales larger than the Debye length. The number density of positive ions (n<sub>i</sub>) approximately equals that of negative electrons (n<sub>e</sub>).</p>
+
+                    <div class="equation-box">
+                        n<sub>i</sub> ≈ n<sub>e</sub>
+                    </div>
+
+                    <p>This large-scale neutrality emerges from the rapid response of mobile charges to any potential imbalance, effectively screening electric fields and maintaining the plasma's collective behavior.</p>
+
+                    <h4>Mathematical Framework</h4>
+                    <p>The Debye shielding phenomenon can be rigorously described through the Poisson-Boltzmann equation, combining electromagnetism and statistical mechanics:</p>
+
+                    <div class="equation-box">
+                        ∇²Φ = -ρ/ε₀
+                    </div>
+
+                    <p>Where Φ is the electric potential, ρ is the net charge density, and ε₀ is the permittivity of free space. This framework provides the quantitative basis for understanding and controlling plasma behavior in technological applications.</p>
+                </div>
+
+                <div class="info-cards">
+                    <div class="info-card">
+                        <h4>Research Applications</h4>
+                        <p>Our plasma physics research enables advances in fusion energy, semiconductor manufacturing, and space propulsion technologies.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Laboratory Facilities</h4>
+                        <p>State-of-the-art plasma generation and diagnostic equipment for experimental validation of theoretical models.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Computational Resources</h4>
+                        <p>High-performance computing clusters for large-scale plasma simulations and data analysis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulation Section -->
+    <section class="simulation-section" id="simulation">
+        <div class="simulation-wrapper">
+            <div class="section-header">
+                <h2>Interactive Plasma Simulation</h2>
+                <p>Visualize collective behavior and Coulomb interactions in real-time</p>
+            </div>
+            <div class="simulation-container">
+                <canvas id="plasmaCanvas"></canvas>
+            </div>
+            <div class="simulation-controls">
+                <button class="btn" id="pauseBtn">Pause</button>
+                <button class="btn" id="resetBtn">Reset</button>
+                <button class="btn btn-primary" id="increaseBtn">Increase Density</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Podcast Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="podcast-section">
+                <div class="podcast-header">
+                    <svg class="podcast-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                    </svg>
+                    <h3 class="podcast-title">Research Insights Podcast</h3>
+                </div>
+                <div class="podcast-content">
+                    <div style="height: 228px; width: 204px;">
+                        <iframe src="https://audio.com/embed/audio/1837351631739234?theme=light"
+                            style="display:block; border-radius: 1px; border: none; height: 204px; width: 204px;"></iframe>
+                        <a href='https://audio.com/borel-sigma-inc' style="text-align: center; display: block; color: #A4ABB6; font-size: 12px; font-family: sans-serif; line-height: 16px; margin-top: 8px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@borel-sigma-inc</a>
+                    </div>
+                    <div class="podcast-description">
+                        <p>Our research team discusses recent advances in plasma physics, including mathematical formulations of Debye shielding, semiconductor plasma treatment applications, and developments from fusion energy companies like Commonwealth Fusion Systems and TAE Technologies.</p>
+                        <p>Topics covered include global regulatory frameworks for fusion energy, IAEA international efforts, and market research on emerging plasma technologies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Advance Your Understanding of Plasma Physics</h2>
+            <p>Join our research community and explore the frontiers of the fourth state of matter</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-white btn-lg">Access Research Portal</a>
+                <a href="#" class="btn btn-lg" style="background: transparent; color: white; border-color: white;">Join Our Team</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">© 2025 Zi-US Research. All rights reserved. | Physics Research Division</p>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Plasma Simulation
+        const canvas = document.getElementById('plasmaCanvas');
+        const ctx = canvas.getContext('2d');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const increaseBtn = document.getElementById('increaseBtn');
+        
+        // Set canvas to full container size
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
+        // Simulation parameters
+        let numParticles = 120;
+        const particleRadius = 3;
+        const ionColor = '#ff3366';  // Zi-US danger color
+        const electronColor = '#0066ff';  // Zi-US accent color
+        const ionRatio = 0.3;
+        
+        // Particle array
+        let particles = [];
+        let isPaused = false;
+        let animationId;
+        
+        // Particle class
+        class Particle {
+            constructor(type) {
+                this.type = type;
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * (type === 'ion' ? 0.5 : 2);
+                this.vy = (Math.random() - 0.5) * (type === 'ion' ? 0.5 : 2);
+                this.radius = particleRadius;
+                this.color = type === 'ion' ? ionColor : electronColor;
+                this.charge = type === 'ion' ? 1 : -1;
+            }
+            
+            update() {
+                // Boundary collision
+                if (this.x < this.radius || this.x > canvas.width - this.radius) this.vx *= -1;
+                if (this.y < this.radius || this.y > canvas.height - this.radius) this.vy *= -1;
+                
+                // Move particle
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Apply collective behavior
+                this.applyCollectiveBehavior();
+            }
+            
+            applyCollectiveBehavior() {
+                let fx = 0;
+                let fy = 0;
+                
+                for (let p of particles) {
+                    if (p === this) continue;
+                    
+                    const dx = p.x - this.x;
+                    const dy = p.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < 80) {  // Interaction range
+                        // Coulomb-like interaction
+                        const force = (this.charge * p.charge) / (dist * dist + 10) * 0.5;
+                        fx += force * dx / dist;
+                        fy += force * dy / dist;
+                    }
+                }
+                
+                // Update velocity with damping
+                this.vx += fx * (this.type === 'ion' ? 0.05 : 0.15);
+                this.vy += fy * (this.type === 'ion' ? 0.05 : 0.15);
+                this.vx *= 0.98; // Damping
+                this.vy *= 0.98;
+                
+                // Limit speed
+                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                const maxSpeed = this.type === 'ion' ? 1 : 3;
+                if (speed > maxSpeed) {
+                    this.vx = (this.vx / speed) * maxSpeed;
+                    this.vy = (this.vy / speed) * maxSpeed;
+                }
+            }
+            
+            draw() {
+                // Particle glow effect
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius * 2);
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(1, 'transparent');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Core particle
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // Initialize particles
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < numParticles; i++) {
+                const type = Math.random() < ionRatio ? 'ion' : 'electron';
+                particles.push(new Particle(type));
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            if (isPaused) return;
+            
+            // Dark background with slight fade effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width
